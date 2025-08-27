@@ -1,10 +1,17 @@
-gold = 50;
-currentAkumaNoMi = 0;
+let gold = 50;
+let currentAkumaNoMi = 0;
+const inventorio = [];
+
+const goldText = document.querySelector("#gold");
 const botao = document.getElementById("abrirBau");
 const resultado = document.getElementById("resultado");
 const inventarioLista = document.getElementById("inventario");
 
-const inventario = [];
+const locations = [
+  {
+    name: "Loja secreta da nami",
+  },
+];
 
 const bauDeAkumas = {
   paramercia: [
