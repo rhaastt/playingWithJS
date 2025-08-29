@@ -1,6 +1,6 @@
 let gold = 50;
 let currentAkumaNoMi = 0;
-const inventorio = [];
+const inventario = [];
 
 const goldText = document.querySelector("#gold");
 const botao = document.getElementById("abrirBau");
