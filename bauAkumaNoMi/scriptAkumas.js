@@ -1,6 +1,6 @@
 let gold = 50;
 let currentAkumaNoMi = 0;
-const inventario = [];
+const inventorio = [];
 
 const goldText = document.querySelector("#gold");
 const botao = document.getElementById("abrirBau");
@@ -9,9 +9,37 @@ const inventarioLista = document.getElementById("inventario");
 
 const locations = [
   {
-    name: "Loja secreta da nami",
+    name: "Ilha misteriosa",
+    "button text": ["Loja misteriosa", "Acampamento misterioso", "Porto escondido"],
+    "button functions": [goStore, goCamp, goPort],
+    text: 'Você está em uma ilha misteriosa. Há uma loja, um acampamento e um porto.',
   },
+  {
+    name: "Loja Misteriosa",
+    "button text": [
+      "Comprar um Bau de Akumas no Mi(100 Berries)",
+      "Vender uma Akuma no Mi (50 Berries)",
+      "Sair da loja",
+    ],
+    "button functions": [buyBau, sellAkuma, goIsland],
+  }
 ];
+
+button1.onclick = goStore
+button2.onclick = goCamp
+button3.onclick = goPort
+
+function update(location) {
+  button1.innerText = location["button text"][0];
+  button2.innerText = location["button text"][1];
+  button3.innerText = location["button text"][2];
+
+  button1.onclick = location["button functions"][0];
+  button2.onclick = location["button functions"][1];
+  button3.onclick = location["button functions"][2];
+}
+
+function goIsland()
 
 const bauDeAkumas = {
   paramercia: [
