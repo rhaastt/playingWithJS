@@ -1,55 +1,182 @@
+/* =========================
+   Tema & Reset básico
+========================= */
+:root {
+  --bg: #0a0a23; /* fundo geral */
+  --panel: #1c0a5e; /* painéis escuros */
+  --panel-2: #1b084e; /* variação */
+  --text: #e6e6f0; /* texto claro */
+  --muted: #b8b8cf; /* texto secundário */
+  --accent: #feac32; /* destaque/botões */
+  --accent-2: #fecc4c; /* gradiente */
+  --danger: #7c2806; /* box de batalha */
+  --ring: rgba(255, 255, 255, 0.08);
+  --shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
+  --radius: 12px;
+}
+
+* {
+  box-sizing: border-box;
+}
+html,
 body {
-  background-color: #0a0a23;
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, "Inter", Arial,
+    sans-serif;
+  background: radial-gradient(
+    1200px 800px at 50% -10%,
+    #161645 10%,
+    var(--bg) 60%
+  );
+  color: var(--text);
+  line-height: 1.4;
 }
 
-#text {
-  background-color: #0a0a23;
-  color: #ffffff;
-  padding: 10px;
-}
-
+/* =========================
+   Layout do jogo
+========================= */
 #game {
-  max-width: 500px;
-  max-height: 400px;
-  background-color: #ffffff;
-  color: #ffffff;
-  margin: 30px auto 0px;
-  padding: 10px;
+  max-width: 900px;
+  margin: 32px auto;
+  padding: 16px;
+  border-radius: var(--radius);
+  background: linear-gradient(180deg, var(--panel) 0%, var(--panel-2) 100%);
+  box-shadow: var(--shadow);
+  border: 1px solid var(--ring);
 }
 
-#controls,
+/* Grid simples: stats / controls lado a lado em telas largas */
+@media (min-width: 720px) {
+  #game {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  #text {
+    grid-column: 1 / -1;
+  }
+  #monsterStats {
+    grid-column: 1 / -1;
+  }
+}
+
+/* =========================
+   Painéis (stats e controls)
+========================= */
+.panel {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--ring);
+  border-radius: var(--radius);
+  padding: 12px;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.02),
+    0 8px 18px rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(2px);
+}
+
+/* Stats: avatar + números alinhados */
 #stats {
-  border: 1px solid #0a0a23;
-  padding: 5px;
-  color: #0a0a23;
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
-
-#monsterStats {
-  display: none;
-  border: 1px solid #0a0a23;
-  padding: 5px;
-  color: #ffffff;
-  background-color: #c70d0d;
+#stats img {
+  width: 96px;
+  height: 96px;
+  object-fit: contain; /* mantém proporção */
+  border-radius: 8px;
+  background: #000;
+  box-shadow: 0 0 0 2px #000, 0 6px 12px rgba(0, 0, 0, 0.35);
 }
-
-#monsterImage {
-  display: block;
-  width: 100%;
-  max-width: 240px;
-  margin-top: 8px;
-  border: 2px solid #0a0a23;
-  border-radius: 6px;
-  background: #fff;
-}
-
 .stat {
-  padding-right: 10px;
+  display: inline-flex;
+  gap: 6px;
+  color: var(--muted);
+}
+.stat strong {
+  color: var(--text);
 }
 
+/* Controls: botões em grade responsiva */
+#controls {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+/* =========================
+   Botões
+========================= */
 button {
+  appearance: none;
   cursor: pointer;
-  color: #0a0a23;
-  background-color: #feac32;
-  background-image: linear-gradient(#fecc4c, #ffac33);
-  border: 3px solid #feac32;
+  padding: 10px 12px;
+  font-weight: 600;
+  color: #2a1a00;
+  background: linear-gradient(180deg, var(--accent-2), var(--accent));
+  border: 1px solid #e59d22;
+  border-radius: 10px;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.15) inset,
+    0 6px 12px rgba(0, 0, 0, 0.25);
+  transition: transform 0.06s ease, box-shadow 0.15s ease, filter 0.15s ease;
+}
+button:hover {
+  filter: brightness(1.03) saturate(1.05);
+}
+button:active {
+  transform: translateY(1px);
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.08) inset,
+    0 2px 6px rgba(0, 0, 0, 0.35);
+}
+button:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
+/* =========================
+   Texto / Narrativa
+========================= */
+#text {
+  margin-top: 8px;
+  padding: 12px 14px;
+  border-radius: var(--radius);
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--ring);
+  color: var(--text);
+}
+
+/* =========================
+   Batalha / Monstro
+========================= */
+#monsterStats {
+  display: none; /* visível apenas em luta */
+  text-align: center;
+  padding: 14px;
+  background: black;
+  border: 1px solid rgba(0, 0, 0, 0.35);
+  border-radius: var(--radius);
+  color: #fff;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.06), var(--shadow);
+
+  background: linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)),
+    url("imgs-game/cave.jpg") center / cover no-repeat;
+  /* opcional: escurece um pouco a imagem sem overlay separado */
+  background-blend-mode: multiply;
+}
+#monsterImg {
+  display: block;
+  width: 140px;
+  height: 140px;
+  object-fit: contain;
+  margin: 10px auto 0;
+  border-radius: 10px;
+}
+
+/* =========================
+   Qualidade de vida
+========================= */
+#game ::selection {
+  background: rgba(254, 172, 50, 0.25);
 }

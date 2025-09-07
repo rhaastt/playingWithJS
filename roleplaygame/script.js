@@ -1,9 +1,10 @@
 let xp = 0;
 let health = 100;
 let gold = 50;
-let currentWeapon = 0;
+let currentWeaponIndex = 0;
 let fighting;
 let monsterHealth;
+const playerImg = "imgs-player/player.png";
 let inventory = ["stick"];
 
 const button1 = document.querySelector("#button1");
@@ -16,6 +17,7 @@ const goldText = document.querySelector("#goldText");
 const monsterStats = document.querySelector("#monsterStats");
 const monsterName = document.querySelector("#monsterName");
 const monsterHealthText = document.querySelector("#monsterHealth");
+const monsterImg = document.querySelector("#monsterImg");
 const weapons = [
   { name: "stick", power: 5 },
   { name: "dagger", power: 30 },
@@ -23,21 +25,14 @@ const weapons = [
   { name: "sword", power: 100 },
 ];
 const monsters = [
-  {
-    name: "slime",
-    level: 2,
-    health: 15,
-  },
+  { name: "slime", level: 2, health: 15, img: "imgs-game/slime.png" },
   {
     name: "fanged beast",
     level: 8,
     health: 60,
+    img: "imgs-game/fanged-monster.png",
   },
-  {
-    name: "dragon",
-    level: 20,
-    health: 300,
-  },
+  { name: "dragon", level: 20, health: 300, img: "imgs-game/dragon.png" },
 ];
 const locations = [
   {
@@ -75,7 +70,7 @@ const locations = [
       "Go to town square",
       "Go to town square",
     ],
-    "button functions": [goTown, goTown, easterEgg],
+    "button functions": [goTown, goTown, goTown],
     text: 'The monster screams "Arg!" as it dies. You gain experience points and find gold.',
   },
   {
@@ -126,6 +121,10 @@ function goCave() {
   update(locations[2]);
 }
 
+function fightDragon() {
+  console.log("Fighting dragon.");
+}
+
 function buyHealth() {
   if (gold >= 10) {
     gold -= 10;
@@ -136,14 +135,13 @@ function buyHealth() {
     text.innerText = "You do not have enough gold to buy health.";
   }
 }
-
 function buyWeapon() {
-  if (currentWeapon < weapons.length - 1) {
+  if (currentWeaponIndex < weapons.length - 1) {
     if (gold >= 30) {
       gold -= 30;
-      currentWeapon++;
+      currentWeaponIndex++;
       goldText.innerText = gold;
-      let newWeapon = weapons[currentWeapon].name;
+      let newWeapon = weapons[currentWeaponIndex].name;
       text.innerText = "You now have a " + newWeapon + ".";
       inventory.push(newWeapon);
       text.innerText += " In your inventory you have: " + inventory;
@@ -156,7 +154,6 @@ function buyWeapon() {
     button2.onclick = sellWeapon;
   }
 }
-
 function sellWeapon() {
   if (inventory.length > 1) {
     gold += 15;
@@ -190,19 +187,18 @@ function goFight() {
   monsterStats.style.display = "block";
   monsterName.innerText = monsters[fighting].name;
   monsterHealthText.innerText = monsterHealth;
+
+  monsterImg.src = monsters[fighting].img;
+  monsterImg.alt = monsters[fighting].name;
 }
 
 function attack() {
   text.innerText = "The " + monsters[fighting].name + " attacks.";
   text.innerText +=
-    " You attack it with your " + weapons[currentWeapon].name + ".";
+    " You attack it with your " + weapons[currentWeaponIndex].name + ".";
   health -= getMonsterAttackValue(monsters[fighting].level);
-  if (isMonsterHit()) {
-    monsterHealth -=
-      weapons[currentWeapon].power + Math.floor(Math.random() * xp) + 1;
-  } else {
-    text.innerText += " You miss.";
-  }
+  monsterHealth -=
+    weapons[currentWeaponIndex].power + Math.floor(Math.random() * xp) + 1;
   healthText.innerText = health;
   monsterHealthText.innerText = monsterHealth;
   if (health <= 0) {
@@ -216,7 +212,7 @@ function attack() {
   }
   if (Math.random() <= 0.1 && inventory.length !== 1) {
     text.innerText += " Your " + inventory.pop() + " breaks.";
-    currentWeapon--;
+    currentWeaponIndex--;
   }
 }
 
@@ -239,6 +235,7 @@ function defeatMonster() {
   xp += monsters[fighting].level;
   goldText.innerText = gold;
   xpText.innerText = xp;
+  monsterStats.style.display = "none";
   update(locations[4]);
 }
 
@@ -254,7 +251,7 @@ function restart() {
   xp = 0;
   health = 100;
   gold = 50;
-  currentWeapon = 0;
+  currentWeaponIndex = 0;
   inventory = ["stick"];
   goldText.innerText = gold;
   healthText.innerText = health;
