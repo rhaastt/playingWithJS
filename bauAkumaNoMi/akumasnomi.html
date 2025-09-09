@@ -11,15 +11,26 @@
       <div class="cardBau">
         <h1>Baú das Akuma no Mi</h1>
         <div id="containerBau">
-          <img src="" alt="" />
+          <img
+            id="bauImg"
+            src="imagens-akumas/bau-fechado.png"
+            alt="Baú fechado"
+            width="400px"
+            height="300px"
+          />
         </div>
 
         <div id="containerInfo">
-          <div id="infoBau">
-            <span id="quantidadeBau">2/10</span>
-            <span class="" id="">Disponiveis</span>
+          <div id="infoBau" aria-label="Baús disponíveis">
+            <span
+              ><span id="qtdAtual">5</span>/<span id="qtdTotal">5</span></span
+            >
+            <small>Disponíveis</small>
           </div>
           <button id="abrirBau">Abrir Baú</button>
+        </div>
+        <div id="container-textoBau">
+          <p id="textoBau"></p>
         </div>
       </div>
     </main>
