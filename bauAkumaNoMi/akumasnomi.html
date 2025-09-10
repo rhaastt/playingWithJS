@@ -3,20 +3,35 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="styleAkumas.css" />
+    <link rel="stylesheet" href="../bauAkumaNoMi/styleAkumas.css" />
     <title>Bau de Akumas no mi</title>
   </head>
   <body>
     <main>
+      <div id="stats">
+        <img id="perfil-player" src="" alt="" />
+        <span id="stat">Gold: <span id="berryText">0</span></span>
+      </div>
       <div class="cardBau">
         <h1>Baú das Akuma no Mi</h1>
         <div id="containerBau">
           <img
-            id="bauImg"
-            src="imagens-akumas/bau-fechado.png"
+            id="bauFechado"
+            src="imagens-akumas/bau-fechado.webp"
             alt="Baú fechado"
-            width="400px"
-            height="300px"
+            width="400"
+            height="300"
+            decoding="async"
+            fetchpriority="high"
+          />
+
+          <img
+            id="bauAberto"
+            src="imagens-akumas/bau-aberto.webp"
+            alt="Baú aberto"
+            width="400"
+            height="300"
+            decoding="async"
           />
         </div>
 
@@ -33,8 +48,12 @@
           <p id="textoBau"></p>
         </div>
       </div>
+      <div id="card-inventario">
+        <h2>Inventário</h2>
+        <ul id="inventario"></ul>
+      </div>
     </main>
 
-    <script src="scriptAkumas.js"></script>
+    <script src="../bauAkumaNoMi/scriptAkumas.js"></script>
   </body>
 </html>

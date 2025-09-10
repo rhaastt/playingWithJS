@@ -1,239 +1,210 @@
-/*let gold = 50;
-let currentAkumaNoMi = 0;
-const inventorio = [];
-
-const goldText = document.querySelector("#gold");
-const botao = document.getElementById("abrirBau");
-const resultado = document.getElementById("resultado");
-const inventarioLista = document.getElementById("inventario");
-
-const locations = [
-  {
-    name: "Ilha misteriosa",
-    "button text": ["Loja misteriosa", "Acampamento misterioso", "Porto escondido"],
-    "button functions": [goStore, goCamp, goPort],
-    text: 'Você está em uma ilha misteriosa. Há uma loja, um acampamento e um porto.',
-  },
-  {
-    name: "Loja Misteriosa",
-    "button text": [
-      "Comprar um Bau de Akumas no Mi(100 Berries)",
-      "Vender uma Akuma no Mi (50 Berries)",
-      "Sair da loja",
-    ],
-    "button functions": [buyBau, sellAkuma, goIsland],
-  }
-];
-
-button1.onclick = goStore
-button2.onclick = goCamp
-button3.onclick = goPort
-
-function update(location) {
-  button1.innerText = location["button text"][0];
-  button2.innerText = location["button text"][1];
-  button3.innerText = location["button text"][2];
-
-  button1.onclick = location["button functions"][0];
-  button2.onclick = location["button functions"][1];
-  button3.onclick = location["button functions"][2];
-}
-
-function goIsland()
-
-const bauDeAkumas = {
-  paramercia: [
-    "Gomu Gomu no Mi",
-    "Ope Ope no Mi",
-    "Bara Bara no Mi",
-    "Suke Suke no Mi",
-    "Hana Hana no Mi",
-    "Doru Doru no Mi",
-    "Bomu Bomu no Mi",
-    "Awa Awa no Mi",
-    "Gura Gura no Mi",
-    "Nikyu Nikyu no Mi",
-    "Mero Mero no Mi",
-    "Yomi Yomi no Mi",
-    "Kilo Kilo no Mi",
-    "Toge Toge no Mi",
-    "Soru Soru no Mi",
-    "Noro Noro no Mi",
-    "Mane Mane no Mi",
-    "Horo Horo no Mi",
-  ],
-  logia: [
-    "Mera Mera no Mi",
-    "Hie Hie no Mi",
-    "Pika Pika no Mi",
-    "Goro Goro no Mi",
-    "Yami Yami no Mi",
-    "Magu Magu no Mi",
-    "Suna Suna no Mi",
-    "Moku Moku no Mi",
-  ],
-  zoan: [
-    "Hebi Hebi no Mi",
-    "Tori Tori no Mi[Modelo Fenix]",
-    "Ushi Ushi no Mi",
-    "Hito Hito no Mi",
-    "Inu Inu no Mi",
-    "Uo Uo no Mi[Model Dragon]",
-    "Mogu Mogu no Mi",
-    "Tori Tori no Mi[Modelo Falcon]",
-    "Hito Hito no Mi[Modelo Daibutsu]",
-    "Ushi Ushi no Mi[Modelo Bisonte]",
-    "Hito Hito no Mi[Modelo Nika]",
-  ],
-};
-
-function abrirBauAkuma() {
-  const categoria = Object.keys(bauDeAkumas);
-
-  const categoriaAleatoria =
-    categoria[Math.floor(Math.random() * categoria.length)];
-
-  const frutas = bauDeAkumas[categoriaAleatoria];
-  const frutaAleatoria = frutas[Math.floor(Math.random() * frutas.length)];
-
-  resultado.innerText =
-    "Você encontrou a " +
-    frutaAleatoria +
-    ", que é do tipo " +
-    categoriaAleatoria +
-    "!";
-
-  inventario.push(frutaAleatoria + " do tipo " + categoriaAleatoria + ".");
-
-  atualizarInventario();
-}
-
-function atualizarInventario() {
-  inventarioLista.innerHTML = "";
-  for (let i = 0; i < inventario.length; i++) {
-    const li = document.createElement("li");
-    li.innerText = inventario[i];
-    inventarioLista.appendChild(li);
-  }
-}
-
-botao.addEventListener("click", abrirBauAkuma);*/
-
 document.addEventListener("DOMContentLoaded", function () {
   const btnAbrir = document.getElementById("abrirBau");
-  const bauImg = document.getElementById("bauImg");
+  const contBau = document.getElementById("containerBau");
   const qtdAtualEl = document.getElementById("qtdAtual");
   const qtdTotalEl = document.getElementById("qtdTotal");
-
-  const imgFechado = "imagens-akumas/bau-fechado.png";
-  const imgAberto = "imagens-akumas/bau-aberto.png";
+  const inventarioEl = document.getElementById("inventario");
+  const textoBauEl = document.getElementById("textoBau");
 
   const total = 5;
   let atual = 5;
-
   let aberto = false;
-  let isAnimating = false;
+  let busy = false;
 
-  // inicializa contador
+  const bauDeAkumas = {
+    paramecia: [
+      {
+        nome: "Gomu Gomu no Mi",
+        tipo: "Paramecia",
+        img: "imagens-akumas/gomu-gomu.webp",
+        desc: "Concede ao usuário um corpo elástico, imune a impactos rombudos.",
+      },
+      {
+        nome: "Ope Ope no Mi",
+        tipo: "Paramecia",
+        img: "imagens-akumas/gomu-gomu.webp",
+        desc: "Permite criar uma sala esférica onde o usuário manipula tudo livremente.",
+      },
+      {
+        nome: "Bara Bara no Mi",
+        tipo: "Paramecia",
+        img: "imagens-akumas/gomu-gomu.webp",
+        desc: "Permite dividir o corpo em partes independentes e controlá-las.",
+      },
+      {
+        nome: "Awa Awa no Mi",
+        tipo: "Paramecia",
+        img: "imagens-akumas/gomu-gomu.webp",
+        desc: "Cria bolhas que limpam e reduzem atrito, enfraquecendo inimigos.",
+      },
+      {
+        nome: "Gura Gura no Mi",
+        tipo: "Paramecia",
+        img: "imagens-akumas/gomu-gomu.webp",
+        desc: "Cria terremotos e ondas sísmicas, considerada uma das mais destrutivas.",
+      },
+    ],
+    logia: [
+      {
+        nome: "Mera Mera no Mi",
+        tipo: "Logia",
+        img: "imagens-akumas/gomu-gomu.webp",
+        desc: "Permite criar, controlar e se transformar em fogo.",
+      },
+      {
+        nome: "Suna Suna no Mi",
+        tipo: "Logia",
+        img: "imagens-akumas/gomu-gomu.webp",
+        desc: "Permite controlar e se tornar areia, drenando umidade do ambiente.",
+      },
+      {
+        nome: "Hie Hie no Mi",
+        tipo: "Logia",
+        img: "imagens-akumas/gomu-gomu.webp",
+        desc: "Permite criar e controlar gelo, congelando vastas áreas.",
+      },
+      {
+        nome: "Yami Yami no Mi",
+        tipo: "Logia",
+        img: "imagens-akumas/gomu-gomu.webp",
+        desc: "Permite manipular a escuridão e anular poderes de outras Akumas.",
+      },
+    ],
+    zoan: [
+      {
+        nome: "Hito Hito no Mi",
+        tipo: "Zoan",
+        img: "imagens-akumas/gomu-gomu.webp",
+        desc: "Transforma um animal em humanoide com inteligência superior.",
+      },
+      {
+        nome: "Tori Tori no Mi [Modelo: Fênix]",
+        tipo: "Zoan Mítica",
+        img: "imagens-akumas/gomu-gomu.webp",
+        desc: "Permite se transformar em uma fênix, com chamas azuis que curam ferimentos.",
+      },
+      {
+        nome: "Ushi Ushi no Mi [Modelo: Bisonte]",
+        tipo: "Zoan",
+        img: "imagens-akumas/gomu-gomu.webp",
+        desc: "Permite se transformar em um bisonte ou híbrido.",
+      },
+      {
+        nome: "Hito Hito no Mi [Modelo: Daibutsu]",
+        tipo: "Zoan Mítica",
+        img: "imagens-akumas/gomu-gomu.webp",
+        desc: "Transforma o usuário em um grande Buda dourado com poderes místicos.",
+      },
+    ],
+  };
+
+  const inventario = [];
+
+  // contador inicial
   qtdTotalEl.textContent = total;
   qtdAtualEl.textContent = atual;
 
-  // --- pré-carregar as imagens
-  const cache = {};
+  // preload util
   function preload(src) {
-    return new Promise(function (resolve) {
-      if (cache[src]) return resolve(cache[src]);
-      const im = new Image();
-      im.onload = function () {
-        cache[src] = true;
-        resolve(true);
-      };
-      im.onerror = function () {
-        resolve(false);
-      };
-      im.src = src;
-    });
-  }
-  Promise.all([preload(imgFechado), preload(imgAberto)]);
-
-  // --- aguarda imagem decodificar
-  function waitDecode(imageElement) {
-    if (imageElement.decode) {
-      return imageElement.decode().catch(function () {
-        return new Promise(function (res) {
-          if (imageElement.complete) return res();
-          imageElement.addEventListener("load", function h() {
-            imageElement.removeEventListener("load", h);
-            res();
-          });
-        });
-      });
-    }
-    return new Promise(function (res) {
-      if (imageElement.complete) return res();
-      imageElement.addEventListener("load", function h() {
-        imageElement.removeEventListener("load", h);
-        res();
-      });
-    });
+    const im = new Image();
+    im.decoding = "async";
+    im.loading = "eager";
+    im.src = src;
   }
 
-  // --- aguarda fim da transição de opacity
-  function onOpacityTransitionEnd(el, callback) {
-    function handler(e) {
-      if (e.propertyName === "opacity") {
-        el.removeEventListener("transitionend", handler);
-        callback();
-      }
-    }
-    el.addEventListener("transitionend", handler);
-  }
+  // Pré-carregar imagens do baú
+  preload("imagens-akumas/bau-fechado.webp");
+  preload("imagens-akumas/bau-aberto.webp");
 
-  // --- atualizar contador
+  // Pré-carregar imagem das frutas (todas apontam para a mesma temporária)
+  [...bauDeAkumas.paramecia, ...bauDeAkumas.logia, ...bauDeAkumas.zoan].forEach(
+    (f) => preload(f.img)
+  );
+
   function atualizarContador() {
     qtdAtualEl.textContent = atual;
-    if (atual === 0 && aberto === false) {
+    if (atual === 0 && !aberto) {
       btnAbrir.disabled = true;
       btnAbrir.textContent = "Sem Baús";
     }
   }
 
-  // --- lógica do clique
+  // sorteio unificado
+  function sortearAkuma() {
+    const todas = [
+      ...bauDeAkumas.paramecia,
+      ...bauDeAkumas.logia,
+      ...bauDeAkumas.zoan,
+    ];
+    const i = Math.floor(Math.random() * todas.length);
+    return todas[i];
+  }
+
+  // texto do baú (formatação legível)
+  function mostrarTexto(fruta) {
+    textoBauEl.innerHTML = `<strong>${fruta.nome}</strong> — <em>${fruta.tipo}</em><br>${fruta.desc}`;
+  }
+
+  const SLOT_COUNT = 12;
+
+  function renderInventario() {
+    const itens = [...inventario];
+    while (itens.length < SLOT_COUNT) itens.push(null);
+
+    inventarioEl.innerHTML = itens
+      .map((f) => {
+        if (!f) {
+          // slot vazio com área .pad para centralizar o "+"
+          return `<li class="slot vazio">
+                <div class="pad"></div>
+              </li>`;
+        }
+        // slot preenchido: imagem na .pad + legenda em faixa
+        return `<li class="slot">
+              <div class="pad">
+                <img src="${f.img}" alt="${f.nome}"
+                     title="${f.nome} — ${f.tipo}\n${f.desc}" decoding="async">
+              </div>
+              <span class="label">${f.nome}</span>
+            </li>`;
+      })
+      .join("");
+  }
+  function dropFruta() {
+    const fruta = sortearAkuma();
+    inventario.push(fruta);
+    renderInventario();
+    mostrarTexto(fruta);
+  }
+
   btnAbrir.addEventListener("click", function () {
+    if (busy) return;
+
     if (!aberto && atual <= 0) {
       btnAbrir.disabled = true;
       btnAbrir.textContent = "Sem Baús";
       return;
     }
-    if (isAnimating) return;
-    isAnimating = true;
 
-    // fade-out
-    bauImg.classList.remove("fade-in");
-    void bauImg.offsetWidth; // força reflow
-    bauImg.classList.add("fade-out");
+    busy = true;
 
-    onOpacityTransitionEnd(bauImg, function () {
-      const nextSrc = aberto ? imgFechado : imgAberto;
-      bauImg.src = nextSrc;
+    if (!aberto) {
+      atual -= 1;
+      atualizarContador();
+    }
 
-      waitDecode(bauImg).then(function () {
-        bauImg.classList.remove("fade-out");
-        void bauImg.offsetWidth;
-        bauImg.classList.add("fade-in");
+    aberto = !aberto;
+    contBau.classList.toggle("open", aberto);
+    btnAbrir.textContent = aberto ? "Fechar Baú" : "Abrir Baú";
 
-        aberto = !aberto;
-        btnAbrir.textContent = aberto ? "Fechar Baú" : "Abrir Baú";
+    const ANIM_MS = 380;
 
-        if (aberto && atual > 0) {
-          atual -= 1;
-          atualizarContador();
-        }
+    if (aberto) {
+      setTimeout(dropFruta, ANIM_MS);
+    }
 
-        onOpacityTransitionEnd(bauImg, function () {
-          isAnimating = false;
-        });
-      });
-    });
+    setTimeout(function () {
+      busy = false;
+    }, ANIM_MS);
   });
 });
