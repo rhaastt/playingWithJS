@@ -1,60 +1,60 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./contadorDeCaloria.css" />
-    <title>Calorie Counter</title>
+    <title>Contador de Calorias</title>
   </head>
   <body>
     <main>
-      <h1>Calorie Counter</h1>
+      <h1>Contador de Calorias</h1>
       <div class="container">
         <form id="calorie-counter">
-          <label for="budget">Budget</label>
+          <label for="budget">Meta Diária</label>
           <input
             type="number"
             min="0"
             id="budget"
-            placeholder="Daily calorie budget"
+            placeholder="Meta diária de calorias"
             required
           />
           <fieldset id="breakfast">
-            <legend>Breakfast</legend>
+            <legend>Café da Manhã</legend>
             <div class="input-container"></div>
           </fieldset>
           <fieldset id="lunch">
-            <legend>Lunch</legend>
+            <legend>Almoço</legend>
             <div class="input-container"></div>
           </fieldset>
           <fieldset id="dinner">
-            <legend>Dinner</legend>
+            <legend>Jantar</legend>
             <div class="input-container"></div>
           </fieldset>
           <fieldset id="snacks">
-            <legend>Snacks</legend>
+            <legend>Lanches</legend>
             <div class="input-container"></div>
           </fieldset>
           <fieldset id="exercise">
-            <legend>Exercise</legend>
+            <legend>Exercícios</legend>
             <div class="input-container"></div>
           </fieldset>
           <div class="controls">
             <span>
-              <label for="entry-dropdown">Add food or exercise:</label>
+              <label for="entry-dropdown">Adicionar comida ou exercício:</label>
               <select id="entry-dropdown" name="options">
-                <option value="breakfast" selected>Breakfast</option>
-                <option value="lunch">Lunch</option>
-                <option value="dinner">Dinner</option>
-                <option value="snacks">Snacks</option>
-                <option value="exercise">Exercise</option>
+                <option value="breakfast" selected>Café da Manhã</option>
+                <option value="lunch">Almoço</option>
+                <option value="dinner">Jantar</option>
+                <option value="snacks">Lanches</option>
+                <option value="exercise">Exercícios</option>
               </select>
-              <button type="button" id="add-entry">Add Entry</button>
+              <button type="button" id="add-entry">Adicionar</button>
             </span>
           </div>
           <div>
-            <button type="submit">Calculate Remaining Calories</button>
-            <button type="button" id="clear">Clear</button>
+            <button type="submit">Calcular Calorias Restantes</button>
+            <button type="button" id="clear">Limpar</button>
           </div>
         </form>
         <div id="output" class="output hide"></div>
